@@ -1,5 +1,6 @@
 package com.example.minddiary.ui.settings
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -34,38 +35,20 @@ fun SettingsScreen(
             .background(bgColor)
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp, vertical = 12.dp)
+            modifier = Modifier.fillMaxSize()
         ) {
-
-            // ───── 상단 바: 뒤로가기 + 제목 ─────
-            Row(
+            // 상단 타이틀바
+            TopBar(
+                onBackClick = { navController.popBackStack() }
+            )
+            
+            // 스크롤 가능한 콘텐츠
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(horizontal = 16.dp, vertical = 12.dp)
             ) {
-                IconButton(onClick = { navController.popBackStack() }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_arrow_left),
-                        contentDescription = "Back",
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-
-                Text(
-                    text = "설정",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.weight(1f),
-                    textAlign = TextAlign.Center
-                )
-
-                // 오른쪽 자리는 비워두기(아이콘 균형 맞추려고)
-                Spacer(modifier = Modifier.size(48.dp))
-            }
 
             // ───── 테마 + 데이터 관리 카드 ─────
             Card(
@@ -84,7 +67,8 @@ fun SettingsScreen(
                     Text(
                         text = "테마",
                         fontSize = 14.sp,
-                        fontWeight = FontWeight.SemiBold
+                        fontWeight = FontWeight.SemiBold,
+                        color = Color(0xFF000000) // 검은색으로 선명하게
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -118,7 +102,8 @@ fun SettingsScreen(
                     Text(
                         text = "데이터 관리",
                         fontSize = 14.sp,
-                        fontWeight = FontWeight.SemiBold
+                        fontWeight = FontWeight.SemiBold,
+                        color = Color(0xFF000000) // 검은색으로 선명하게
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -143,14 +128,14 @@ fun SettingsScreen(
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_download_pdf),
                                 contentDescription = "Export PDF",
-                                tint = Color(0xFF777777),
+                                tint = Color(0xFF333333), // 더 진한 회색으로
                                 modifier = Modifier.size(20.dp)
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
                                 text = "PDF로 내보내기",
                                 fontSize = 13.sp,
-                                color = Color(0xFF777777)
+                                color = Color(0xFF333333) // 더 진한 회색으로 선명하게
                             )
                         }
                     }
@@ -180,6 +165,49 @@ fun SettingsScreen(
                     fontWeight = FontWeight.SemiBold
                 )
             }
+            }
+        }
+    }
+}
+
+@Composable
+private fun TopBar(
+    onBackClick: () -> Unit
+) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(54.dp),
+        color = Color.White
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            // 뒤로가기 버튼 - 왼쪽 끝
+            IconButton(
+                onClick = onBackClick,
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .padding(start = 8.dp)
+                    .size(40.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_arrow_left),
+                    contentDescription = "뒤로가기",
+                    modifier = Modifier.size(24.dp),
+                    tint = Color(0xFF1B2023)
+                )
+            }
+            
+            // 설정 이미지 - 정확히 가운데
+            Image(
+                painter = painterResource(id = R.drawable.text_setting),
+                contentDescription = "설정",
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .height(16.dp)
+                    .widthIn(min = 50.dp)
+            )
         }
     }
 }
@@ -199,12 +227,17 @@ private fun ThemeRadioRow(
     ) {
         RadioButton(
             selected = selectedTheme == value,
-            onClick = { onSelected(value) }
+            onClick = { onSelected(value) },
+            colors = RadioButtonDefaults.colors(
+                selectedColor = Color(0xFF000000), // 선택된 라디오 버튼 검은색
+                unselectedColor = Color(0xFF666666) // 선택되지 않은 라디오 버튼 진한 회색
+            )
         )
         Spacer(modifier = Modifier.width(4.dp))
         Text(
             text = label,
-            fontSize = 13.sp
+            fontSize = 13.sp,
+            color = Color(0xFF000000) // 텍스트 검은색으로 선명하게
         )
     }
 }

@@ -220,7 +220,7 @@ fun EmotionReportScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
-                    .padding(horizontal = 16.dp, vertical = 30.dp)
+                    .padding(horizontal = 16.dp, vertical = 16.dp)
             ) {
 
             // 1. 이번 주 감정 요약
@@ -229,7 +229,7 @@ fun EmotionReportScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // 2. 주간 활동 그래프
             WeeklyActivityCard(
@@ -237,7 +237,7 @@ fun EmotionReportScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // 3. 감정 분포
             EmotionDistributionCard(
@@ -245,7 +245,7 @@ fun EmotionReportScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // 4. 달성한 뱃지
             BadgeCard(
@@ -253,7 +253,7 @@ fun EmotionReportScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }
@@ -273,11 +273,12 @@ private fun TopBar() {
                 .padding(horizontal = 32.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = "감정 리포트",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Normal,
-                color = Color(0xFF1B2023)
+            Image(
+                painter = painterResource(id = R.drawable.text_emotionreport),
+                contentDescription = "감정 리포트",
+                modifier = Modifier
+                    .height(24.dp)
+                    .widthIn(min = 80.dp)
             )
         }
     }
@@ -559,7 +560,7 @@ private fun EmotionDistributionCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 28.dp, vertical = 20.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text(
                 text = "감정 분포",
@@ -594,6 +595,8 @@ private fun EmotionDistributionCard(
                     )
                 }
             }
+            
+            Spacer(modifier = Modifier.height(4.dp))
             
             // 개별 감정 리스트
             Column(

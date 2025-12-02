@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -192,11 +193,12 @@ private fun TopBar() {
                 modifier = Modifier.size(32.dp)
             )
             Spacer(modifier = Modifier.width(10.dp))
-            Text(
-                text = "MindDiary",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Normal,
-                color = Color.Black
+            Image(
+                painter = painterResource(id = R.drawable.text_home),
+                contentDescription = "Home",
+                modifier = Modifier
+                    .height(24.dp)
+                    .widthIn(min = 80.dp)
             )
         }
     }
@@ -694,7 +696,7 @@ private fun FloatingWriteButton(
         painter = painterResource(id = imageRes),
         contentDescription = "일기 작성",
         modifier = modifier
-            .size(60.dp)
+            .size(80.dp)
             .clickable(interactionSource = interactionSource, indication = null) {
                 onClick()
             }

@@ -100,12 +100,14 @@ fun NameInputCard(modifier: Modifier = Modifier,
             Text(
                 text = "안녕하세요 :)",
                 fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                color = Color(0xFF000000) // 검은색
             )
             Text(
                 text = "마인드 다이어리입니다.",
                 fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                color = Color(0xFF000000) // 검은색
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -122,12 +124,17 @@ fun NameInputCard(modifier: Modifier = Modifier,
                     )
                 },
                 singleLine = true,
+                textStyle = androidx.compose.ui.text.TextStyle(
+                    color = Color(0xFF000000) // 입력 텍스트 검은색
+                ),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color(0xFFF29A5A),      // 포커스 시 주황색
                     unfocusedBorderColor = Color(0xFFE0E0E0),    // 기본 연회색 테두리
                     focusedContainerColor = Color.White,          // 배경 완전 흰색
                     unfocusedContainerColor = Color.White,
-                    cursorColor = Color(0xFFF29A5A)
+                    cursorColor = Color(0xFFF29A5A),
+                    focusedTextColor = Color(0xFF000000),        // 포커스 시 텍스트 색상
+                    unfocusedTextColor = Color(0xFF000000)       // 비포커스 시 텍스트 색상
                 )
             )
 

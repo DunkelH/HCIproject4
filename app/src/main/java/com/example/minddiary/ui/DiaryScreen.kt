@@ -140,7 +140,7 @@ fun DiaryScreen(
                     // 통계 카드
                     StatsRow(stats = stats)
                     
-                    Spacer(modifier = Modifier.height(56.dp))
+                    Spacer(modifier = Modifier.height(18.dp))
                     
                     // 월별 선택
                     MonthSelector(
@@ -189,14 +189,19 @@ private fun TopBar(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(
-                text = "나의 일기장",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Normal,
-                color = Color(0xFF1B2023)
+            // 제목 이미지 - 맨 왼쪽
+            Image(
+                painter = painterResource(id = R.drawable.text_diaryscreen),
+                contentDescription = "나의 일기장",
+                modifier = Modifier
+                    .height(24.dp)
+                    .widthIn(min = 80.dp)
             )
             
-            IconButton(onClick = onSettingsClick) {
+            // 설정 버튼 - 맨 오른쪽
+            IconButton(
+                onClick = onSettingsClick
+            ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_settings),
                     contentDescription = "Settings",
