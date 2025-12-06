@@ -27,6 +27,7 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -66,10 +67,41 @@ fun DiaryWriteStep2Screen(
     navController: NavController,
     viewModel: DiaryViewModel
 ) {
+    // 일기 개수에 따른 기본 내용 정의
+    val defaultContents = remember {
+        listOf(
+            """오늘은 남양주시 조안면 일대를 천천히 둘러보며 여유로운 하루를 보냈다.
+
+오후 1시쯤, 조안면 송촌리 467 '물의정원에 도착했을 때는 흐린 하늘 아래 강과 초록 들판이 한눈에 펼쳐져 있었다. 잔잔한 물결과 멀리 보이는 산들, 그리고 초록빛 텐트가 어우러져 정말 평온한 풍경이었다. 잠시 산책하면서 강가를 바라보니 마음이 차분해지고 머리가 맑아지는 기분이었다.
+
+그 이후, 조안면 북한강로 근처의 찻집에 들렀다. 따뜻한 차와 함께 호두, 양갱 같은 작은 디저트가 나와서 천천히 맛보며 쉬어갔다. 내부 분위기는 조용하고 아늑해서, 물의정원에서 느꼈던 차분함이 이어지는 느낌이었다. 생각보다 오래 머무르면서 편안하게 시간을 보냈다.
+
+저녁이 되어, 조안면 삼봉리 200-12에 있는 레스토랑 앞에 도착했다. 외관 전체를 덮은 초록 식물들과 따뜻한 조명이 어둠 속에서 더 돋보였다. 입구 주변의 가로등도 은은하게 빛나서 분위기가 정말 좋았다. 하루의 끝을 조용하고 감성적인 공간에서 마무리하니 마음이 편안하게 정리되는 느낌이었다.
+
+자연과 좋은 공간 속에서 보낸 하루라 그런지, 오늘은 유난히 마음이 안정되고 쉬어가는 기분이었다.""",
+            "오늘은 친구들과 함께 시간을 보내서 정말 즐거웠다. 오랜만에 만나서 이야기 나누니 마음이 편안해졌다. 이런 소중한 순간들이 인생을 풍요롭게 만드는 것 같다.",
+            "새로운 프로젝트를 시작하게 되었다. 처음엔 막막했지만 차근차근 준비해보니 할 수 있을 것 같다. 도전하는 과정에서 배우는 것들이 많을 것 같아 기대된다."
+        )
+    }
+    
     var diaryContent by remember {
-        mutableStateOf("계획이 잘 안 풀려서 조금 불안했다. 그래도 다시 정리해보니 괜찮을 것 같다. 내일은 좀 더 차분히 접근해보려고 한다.")
+        mutableStateOf("")
+    }
+    var diaryCount by remember {
+        mutableStateOf(0)
     }
     val scrollState = rememberScrollState()
+    
+    // 일기 개수 가져오기
+    LaunchedEffect(Unit) {
+        diaryCount = viewModel.getDiaryCount()
+        // 일기 개수에 따라 기본 내용 설정 (0, 1, 2번째 일기만 하드코딩)
+        diaryContent = if (diaryCount < defaultContents.size) {
+            defaultContents[diaryCount]
+        } else {
+            defaultContents[0] // 3개 이상일 경우 첫 번째 내용 사용
+        }
+    }
     
     // ViewModel에서 선택된 감정과 사진 가져오기
     val selectedEmotion = viewModel.selectedEmotion
